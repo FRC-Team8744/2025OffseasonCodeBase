@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Mechanism.Arm;
+import frc.robot.subsystems.Mechanism.ScoringMech;
 import edu.wpi.first.wpilibj.util.Color;
 
 /** Add your docs here. */
@@ -35,10 +37,15 @@ public class AutoCommandManager {
     public TrajectoryConfig forwardConfig;
     public TrajectoryConfig reverseConfig;
 
-    public AutoCommandManager()
+    public AutoCommandManager(
+        Arm m_arm,
+        ScoringMech m_scoringMech
+    )
          {
 
-        configureNamedCommands();
+        configureNamedCommands(
+            m_arm,
+        m_scoringMech);
 
         var thetaController = new ProfiledPIDController(
             AutoConstants.kPThetaController, 0, 0,
@@ -88,7 +95,10 @@ public class AutoCommandManager {
             m_robotDrive);
     }
 
-    public void configureNamedCommands() {
+    public void configureNamedCommands(
+       Arm m_arm,
+       ScoringMech m_scoringMech
+    ) {
         // NamedCommands.registerCommand("AutoLineUp", Commands.runOnce(() -> m_robotDrive.isAutoRotate = RotationEnum.STRAFEONTARGET));
     }
 }

@@ -112,7 +112,7 @@ public class DriveSubsystem extends SubsystemBase {
   public boolean isAutoRotateToggle = true;
   public boolean isAutoYSpeedToggle = true;
   public boolean isAutoXSpeedToggle = true;
-  public boolean isDrivingSlow = false;
+  public boolean isDrivingSlow = true;
   
   // public boolean hasYFinished = false;
   
@@ -595,7 +595,8 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public Pose2d getEstimatedPose() {
-    return m_poseEstimator.getEstimatedPosition();
+    // return m_poseEstimator.getEstimatedPosition();
+    return getPose();
   }
 
   public Pose2d getEstimatedPoseAsRadians() {

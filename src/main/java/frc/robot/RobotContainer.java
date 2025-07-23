@@ -6,10 +6,16 @@ package frc.robot;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Commands.ArmDown;
+import frc.robot.Commands.ArmUp;
+import frc.robot.Commands.Intake;
+import frc.robot.Commands.Score;
 import frc.robot.Constants.ConstantsOffboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.SwerveConstants;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Mechanism.Arm;
+import frc.robot.subsystems.Mechanism.ScoringMech;
 import frc.robot.subsystems.alignment.AlignToPole;
 import frc.robot.subsystems.alignment.AlignToPoleX;
 // import frc.robot.subsystems.mechanisms.AlgaeMechanism;
@@ -35,10 +41,12 @@ public class RobotContainer {
   private AlignToPoleX m_alignToPoleX = new AlignToPoleX();
   private AlignToPole m_alignToPoleY = new AlignToPole();
   private DriveSubsystem m_robotDrive = new DriveSubsystem(m_vision, m_vision2, m_alignToPoleX);
+  private Arm m_arm = new Arm();
+  private ScoringMech m_scoringMech = new ScoringMech();
   // The driver's controller
   private CommandXboxController m_driver = new CommandXboxController(OIConstants.kDriverControllerPort);
   private CommandXboxController m_coDriver = new CommandXboxController(1);
-  private AutoCommandManager m_autoManager = new AutoCommandManager();
+  private AutoCommandManager m_autoManager = new AutoCommandManager(m_arm, m_scoringMech);
   
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -77,6 +85,18 @@ public class RobotContainer {
 
     m_driver.pov(0)
     .whileTrue(Commands.runOnce(() -> Constants.visionElevator = !Constants.visionElevator));
+
+    m_driver.a()
+    .whileTrue(new ArmDown(m_arm));
+
+    m_driver.b()
+    .whileTrue(new ArmUp(m_arm));
+
+    m_driver.leftBumper()
+    .whileTrue(new Intake(m_scoringMech));
+
+    m_driver.rightBumper()
+    .whileTrue(new Score(m_scoringMech));
     
     // m_coDriver.rightBumper()
     // .toggleOnTrue(Commands.runOnce(() -> m_robotDrive.leftPoint = false));

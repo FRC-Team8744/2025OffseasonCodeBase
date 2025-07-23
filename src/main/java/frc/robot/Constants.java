@@ -81,30 +81,30 @@ public final class Constants {
     // The positive X axis points ahead, the positive Y axis points left, and the positive Z axis points up.
     // We use NWU here because the rest of the library, and math in general, use NWU axes convention.
     // https://docs.wpilib.org/en/stable/docs/software/hardware-apis/motors/wpi-drive-classes.html#axis-conventions
-    public static final int kFrontLeftDriveMotorPort = 8; // 8
-    public static final int kFrontRightDriveMotorPort = 3; // 3
-    public static final int kRearLeftDriveMotorPort = 17; // 17
-    public static final int kRearRightDriveMotorPort = 20; // 20
+    public static final int kFrontLeftDriveMotorPort = 19; // 8
+    public static final int kFrontRightDriveMotorPort = 1; // 3
+    public static final int kRearLeftDriveMotorPort = 13; // 17
+    public static final int kRearRightDriveMotorPort = 4; // 20
 
-    public static final int kFrontLeftTurningMotorPort = 10; // 10
-    public static final int kFrontRightTurningMotorPort = 5; // 5
-    public static final int kRearLeftTurningMotorPort = 19; // 19
-    public static final int kRearRightTurningMotorPort = 22; // 22
+    public static final int kFrontLeftTurningMotorPort = 17; // 10
+    public static final int kFrontRightTurningMotorPort = 2; // 5
+    public static final int kRearLeftTurningMotorPort = 12; // 19
+    public static final int kRearRightTurningMotorPort = 6; // 22
 
-    public static final int kFrontLeftMagEncoderPort = 9; // 9
-    public static final int kFrontRightMagEncoderPort = 4; // 4
-    public static final int kRearLeftMagEncoderPort = 18; // 18
-    public static final int kRearRightMagEncoderPort = 21; // 21
+    public static final int kFrontLeftMagEncoderPort = 18; // 9
+    public static final int kFrontRightMagEncoderPort = 3; // 4
+    public static final int kRearLeftMagEncoderPort = 14; // 18
+    public static final int kRearRightMagEncoderPort = 5; // 21
 
-    public static final int kRightElevatorMotorPort = 2;
-    public static final int kIndexerMotorPortL = 6;
-    public static final int kIndexerMotorPortR = 23;
-    public static final int kIntakeRollerMotorPort = 11;
-    public static final int kIntakePivotMotorPort = 12;
-    public static final int kLeftElevatorMotorPort = 13;
-    public static final int kScoringMechanismPivotMotorPort = 14;
-    public static final int kCoralScoringMotorPort = 15;
-    public static final int kAlgaeScoringMotorPort = 16;
+    public static final int kLeftArmMotor1 = 15;
+    public static final int kkLeftArmMotor2 = 16;
+    public static final int kRightArmMotor1 = 7;
+    public static final int kRightArmMotor2 = 8;
+    // public static final int kIntakePivotMotorPort = 12;
+    // public static final int kLeftElevatorMotorPort = 13;
+    // public static final int kScoringMechanismPivotMotorPort = 14;
+    // public static final int kCoralScoringMotorPort = 15;
+    // public static final int kAlgaeScoringMotorPort = 16;
 
     // Only disable the steering angle optimizer when measuring the CANcoder offsets!
     public static final boolean DISABLE_ANGLE_OPTIMIZER = false;
@@ -139,7 +139,7 @@ public final class Constants {
             new Translation2d(-kWheelBase / 2, kTrackWidth / 2),  // Rear Left Quadrant
             new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));  // Rear Right Quadrant
 
-    public static final int kIMU_ID = 7;
+    public static final int kIMU_ID = 11;
 
     public static int kSwerveFL_enum = 0;
     public static int kSwerveFR_enum = 1;
@@ -166,19 +166,19 @@ public final class Constants {
     public static final boolean DRIVE_MOTOR_PROFILED_MODE = true;
     /** Angle motor PID values for speed/acceleration limited mode. */
     // Reference: https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Smart%20Motion%20Example/src/main/java/frc/robot/Robot.java
-    public static final double DRIVE_KP_PROFILED = 0.01;
+    public static final double DRIVE_KP_PROFILED = 0.1;//.01
     public static final double DRIVE_KI_PROFILED = 0.0;
     public static final double DRIVE_KD_PROFILED = 0.0;
-    public static final double DRIVE_KF_PROFILED = 0.23;
+    public static final double DRIVE_KF_PROFILED = 0.23;//.23
     public static final double DRIVE_MAX_VEL_PROFILED = kMaximumSparkMaxRPM;  // Maximum Velocity, RPM
     public static final double DRIVE_MAX_ACC_PROFILED = 20000;  // Maximum Acceleration, RPM^2
     public static final double DRIVE_MAX_ERR_PROFILED = 0.02;  // Error tolerance of PID controller, rotations
 
     /** Drive motor PID values. */
-    public static final double DRIVE_KP = 0.25;
+    public static final double DRIVE_KP = 0.25;//.25
     public static final double DRIVE_KI = 0.0;
     public static final double DRIVE_KD = 0.0;
-    public static final double DRIVE_KF = 0.25;
+    public static final double DRIVE_KF = 0.25;//.25
 
     public static final double KRAKEN_V = 0.32;
     public static final double KRAKEN_P = 0.11;
@@ -188,18 +188,18 @@ public final class Constants {
     public static final boolean ANGLE_MOTOR_PROFILED_MODE = false;
     /** Angle motor PID values for speed/acceleration limited mode. */
     // Reference: https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Smart%20Motion%20Example/src/main/java/frc/robot/Robot.java
-    public static final double ANGLE_KP_PROFILED = 0.00075;
+    public static final double ANGLE_KP_PROFILED = 0.00075; // .00075
     public static final double ANGLE_KI_PROFILED = 0.0;
     public static final double ANGLE_KD_PROFILED = 0.0;
-    public static final double ANGLE_KF_PROFILED = 0.0003;
+    public static final double ANGLE_KF_PROFILED = 0.0003; // .0003
     public static final double ANGLE_MAX_VEL_PROFILED = kMaximumSparkMaxRPM;  // Maximum Velocity, RPM
     public static final double ANGLE_MAX_ACC_PROFILED = 20000;  // Maximum Acceleration, RPM^2
     public static final double ANGLE_MAX_ERR_PROFILED = 0.02;  // Error tolerance of PID controller, rotations
 
     /** Angle motor PID values. */
-    public static final double ANGLE_KP = 1.5;
+    public static final double ANGLE_KP = 1.5;//1.5
     public static final double ANGLE_KI = 0.0;
-    public static final double ANGLE_KD = 0.1;
+    public static final double ANGLE_KD = 0.1; //.1
     public static final double ANGLE_KF = 0.0;
     public static final PIDConstants ANGLE_PID = new PIDConstants(ANGLE_KP, ANGLE_KI, ANGLE_KD);
     

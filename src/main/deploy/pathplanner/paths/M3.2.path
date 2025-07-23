@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.2675,
+        "y": 1.060999999999999
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1742500000000002,
+        "y": 0.1834999999999991
+      },
+      "isLocked": false,
+      "linkedName": "M2.2"
+    },
+    {
+      "anchor": {
+        "x": 6.025499999999999,
+        "y": 4.0055
+      },
+      "prevControl": {
+        "x": 7.0005,
+        "y": 3.1182499999999997
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "M3.2"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -179.38394009160075
+  },
+  "reversed": false,
+  "folder": "OffSeason ",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -126.2188372656145
+  },
+  "useDefaultConstraints": true
+}

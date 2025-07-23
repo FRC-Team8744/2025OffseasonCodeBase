@@ -18,6 +18,7 @@ import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -181,7 +182,7 @@ public class SwerveModuleOffboard {
     m_canCoder.getPosition().setUpdateFrequency(100);
     m_canCoder.getVelocity().setUpdateFrequency(100);
 
-    SparkBaseConfig m_drivingMotorConfig = new SparkMaxConfig()
+    SparkBaseConfig m_drivingMotorConfig = new SparkMaxConfig().idleMode(IdleMode.kBrake)
       .inverted(ConstantsOffboard.DRIVE_MOTOR_INVERSION)
       .smartCurrentLimit(ConstantsOffboard.DRIVE_CURRENT_LIMIT);
     if (ConstantsOffboard.DRIVE_MOTOR_PROFILED_MODE) {
@@ -196,6 +197,7 @@ public class SwerveModuleOffboard {
         ConstantsOffboard.DRIVE_KI, 
         ConstantsOffboard.DRIVE_KD, 
         ConstantsOffboard.DRIVE_KF);
+        
     }
 
     m_drivingMotorConfig.closedLoop
@@ -207,7 +209,7 @@ public class SwerveModuleOffboard {
 
     m_driveMotor.configure(m_drivingMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 
-    SparkBaseConfig m_turningMotorConfig = new SparkMaxConfig()
+    SparkBaseConfig m_turningMotorConfig = new SparkMaxConfig().idleMode(IdleMode.kBrake)
       .inverted(ConstantsOffboard.ANGLE_MOTOR_INVERSION)
       .smartCurrentLimit(ConstantsOffboard.ANGLE_CURRENT_LIMIT);
 
