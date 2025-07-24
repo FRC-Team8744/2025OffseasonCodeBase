@@ -98,9 +98,9 @@ public class SwerveModuleOffboard {
     } else {
       // Optimize the reference state to avoid spinning further than 90 degrees
       // state = SwerveModuleState.optimize(desiredState, new Rotation2d(m_turningEncoder.getPosition()));
-      state = desiredState;
-      m_turningEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition().getValueAsDouble() * 360.0 - m_canCoderOffsetDegrees));
-      state.optimize(new Rotation2d(m_turningEncoder.getPosition()));
+      // state = desiredState;
+      // m_turningEncoder.setPosition(Units.degreesToRadians(m_canCoder.getAbsolutePosition().getValueAsDouble() * 360.0 - m_canCoderOffsetDegrees));
+      state = SwerveModuleState.optimize(desiredState, new Rotation2d(m_turningEncoder.getPosition()));
     }
 
     // Scale speed by cosine of angle error. This scales down movement perpendicular to the desired
@@ -109,8 +109,8 @@ public class SwerveModuleOffboard {
     state.speedMetersPerSecond *= state.angle.minus(new Rotation2d(m_turningEncoder.getPosition())).getCos();
 
     // Set the PID reference states
-    driveVelocity.Velocity = (state.speedMetersPerSecond * 60) / Constants.ConstantsOffboard.WHEEL_CIRCUMFERENCE;
-    driveVelocity.FeedForward = driveFeedForward.calculate(desiredState.speedMetersPerSecond);
+    // driveVelocity.Velocity = (state.speedMetersPerSecond * 60) / Constants.ConstantsOffboard.WHEEL_CIRCUMFERENCE;
+    // driveVelocity.FeedForward = driveFeedForward.calculate(desiredState.speedMetersPerSecond);
     m_drivePID.setReference(state.speedMetersPerSecond, (ConstantsOffboard.DRIVE_MOTOR_PROFILED_MODE) ? SparkMax.ControlType.kMAXMotionVelocityControl : SparkMax.ControlType.kVelocity);
     m_turningPID.setReference(state.angle.getRadians(), (ConstantsOffboard.ANGLE_MOTOR_PROFILED_MODE) ? SparkMax.ControlType.kMAXMotionPositionControl : SparkMax.ControlType.kPosition);
   }
@@ -197,7 +197,6 @@ public class SwerveModuleOffboard {
         ConstantsOffboard.DRIVE_KI, 
         ConstantsOffboard.DRIVE_KD, 
         ConstantsOffboard.DRIVE_KF);
-        
     }
 
     m_drivingMotorConfig.closedLoop
@@ -206,6 +205,10 @@ public class SwerveModuleOffboard {
         .maxVelocity(ConstantsOffboard.DRIVE_MAX_VEL_PROFILED)
         .maxAcceleration(ConstantsOffboard.DRIVE_MAX_ACC_PROFILED)
         .allowedClosedLoopError(ConstantsOffboard.DRIVE_MAX_ERR_PROFILED);
+
+    m_drivingMotorConfig.encoder
+      .positionConversionFactor(ConstantsOffboard.DRIVE_ROTATIONS_TO_METERS)
+      .velocityConversionFactor(ConstantsOffboard.DRIVE_RPM_TO_METERS_PER_SECOND);
 
     m_driveMotor.configure(m_drivingMotorConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
 

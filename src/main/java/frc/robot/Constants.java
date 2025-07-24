@@ -17,7 +17,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 public final class Constants {
-  public static final int kDebugLevel = 3; // 0 = None, 1 = Errors, 2 = Info, 3 = Debug and USB data log
+  public static final int kDebugLevel = 0; // 0 = None, 1 = Errors, 2 = Info, 3 = Debug and USB data log
   
   public static final int kMaxSpeedPercentAuto = 100; //This effects Drive speed in telop DONT ASK ME WHY
   public static final int kMaxSpeedPercentTeleop = 65;
@@ -68,14 +68,14 @@ public final class Constants {
   public static final double ELEVATOR_GEARING = 5.0;
 
   public Constants() {
-    configureKrakens();
+    // configureKrakens();
   }
 
   public static final class MechanismConstants {}
 
   public static final class SwerveConstants {
-    public static final double kMaxSpeedMetersPerSecond = (5.94 * kMaxSpeedPercentAuto) / 100;
-    public static final double kMaxSpeedTeleop = (10.0 * kMaxSpeedPercentTeleop) / 100;
+    public static final double kMaxSpeedMetersPerSecond = (4.4 * kMaxSpeedPercentAuto) / 100;
+    public static final double kMaxSpeedTeleop = (3.0 * kMaxSpeedPercentTeleop) / 100;
 
     // The drive classes use the NWU axes convention (North-West-Up as external reference in the world frame).
     // The positive X axis points ahead, the positive Y axis points left, and the positive Z axis points up.
@@ -97,7 +97,7 @@ public final class Constants {
     public static final int kRearRightMagEncoderPort = 5; // 21
 
     public static final int kLeftArmMotor1 = 15;
-    public static final int kkLeftArmMotor2 = 16;
+    public static final int kLeftArmMotor2 = 16;
     public static final int kRightArmMotor1 = 7;
     public static final int kRightArmMotor2 = 8;
     // public static final int kIntakePivotMotorPort = 12;
@@ -110,15 +110,15 @@ public final class Constants {
     public static final boolean DISABLE_ANGLE_OPTIMIZER = false;
 
     // Note: Zeroing the CanCoder in Tuner X doesn't seem to affect the reported absolute position.
-    public static final double kFrontLeftMagEncoderOffsetDegrees_NoNo = 0.685547 * 360; // 10
-    public static final double kFrontRightMagEncoderOffsetDegrees_NoNo = 0.369629 * 360; // 9
-    public static final double kRearLeftMagEncoderOffsetDegrees_NoNo = 0.030273 * 360; // 11
-    public static final double kRearRightMagEncoderOffsetDegrees_NoNo = 0.723896 * 360; // 12
+    public static final double kFrontLeftMagEncoderOffsetDegrees = 0.417236 * 360; // 10
+    public static final double kFrontRightMagEncoderOffsetDegrees = 0.375977 * 360; // 9
+    public static final double kRearLeftMagEncoderOffsetDegrees = 0.738037 * 360; // 11
+    public static final double kRearRightMagEncoderOffsetDegrees = 0.866699 * 360; // 12
 
-    public static final double kFrontLeftMagEncoderOffsetDegrees = 81.12;
-    public static final double kFrontRightMagEncoderOffsetDegrees = 133.77;
-    public static final double kRearLeftMagEncoderOffsetDegrees = 11.25;
-    public static final double kRearRightMagEncoderOffsetDegrees = 66.71;
+    // public static final double kFrontLeftMagEncoderOffsetDegrees = 81.12;
+    // public static final double kFrontRightMagEncoderOffsetDegrees = 133.77;
+    // public static final double kRearLeftMagEncoderOffsetDegrees = 11.25;
+    // public static final double kRearRightMagEncoderOffsetDegrees = 66.71;
 
     // public static final double kFrontLeftMagEncoderOffsetDegrees_Swivels = 81.12;
     // public static final double kFrontRightMagEncoderOffsetDegrees_Swivels = 133.77;
@@ -148,11 +148,11 @@ public final class Constants {
   }
 
   public static final class ConstantsOffboard {
-    public static final int kMaximumSparkMaxRPM = 6000;
+    public static final int kMaximumSparkMaxRPM = 5700;
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
-    public static final double DRIVE_GEAR_RATIO = 5.36 / 1.0; // 5.36:1
+    public static final double DRIVE_GEAR_RATIO = 6.75 / 1.0; // 5.36:1
     public static final double DRIVE_ROTATIONS_TO_METERS = WHEEL_CIRCUMFERENCE / DRIVE_GEAR_RATIO;
     public static final double DRIVE_RPM_TO_METERS_PER_SECOND = DRIVE_ROTATIONS_TO_METERS / 60.0;
     public static final double ANGLE_GEAR_RATIO = (150 / 7) / 1.0; // 150/7:1
@@ -163,35 +163,35 @@ public final class Constants {
     public static final int DRIVE_CURRENT_LIMIT = 40;
     public static final int ANGLE_CURRENT_LIMIT = 20;
 
-    public static final boolean DRIVE_MOTOR_PROFILED_MODE = true;
+    public static final boolean DRIVE_MOTOR_PROFILED_MODE = false;
     /** Angle motor PID values for speed/acceleration limited mode. */
     // Reference: https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Smart%20Motion%20Example/src/main/java/frc/robot/Robot.java
-    public static final double DRIVE_KP_PROFILED = 0.1;//.01
+    public static final double DRIVE_KP_PROFILED = 0.01;//.01
     public static final double DRIVE_KI_PROFILED = 0.0;
     public static final double DRIVE_KD_PROFILED = 0.0;
-    public static final double DRIVE_KF_PROFILED = 0.23;//.23
+    public static final double DRIVE_KF_PROFILED = 0.0003;//.23
     public static final double DRIVE_MAX_VEL_PROFILED = kMaximumSparkMaxRPM;  // Maximum Velocity, RPM
     public static final double DRIVE_MAX_ACC_PROFILED = 20000;  // Maximum Acceleration, RPM^2
     public static final double DRIVE_MAX_ERR_PROFILED = 0.02;  // Error tolerance of PID controller, rotations
 
     /** Drive motor PID values. */
-    public static final double DRIVE_KP = 0.25;//.25
+    public static final double DRIVE_KP = 0.1;//.25
     public static final double DRIVE_KI = 0.0;
     public static final double DRIVE_KD = 0.0;
     public static final double DRIVE_KF = 0.25;//.25
 
-    public static final double KRAKEN_V = 0.32;
-    public static final double KRAKEN_P = 0.11;
-    public static final double KRAKEN_I = 0.48;
-    public static final double KRAKEN_D = 0.01;
+    // public static final double KRAKEN_V = 0.32;
+    // public static final double KRAKEN_P = 0.11;
+    // public static final double KRAKEN_I = 0.48;
+    // public static final double KRAKEN_D = 0.01;
 
     public static final boolean ANGLE_MOTOR_PROFILED_MODE = false;
     /** Angle motor PID values for speed/acceleration limited mode. */
     // Reference: https://github.com/REVrobotics/SPARK-MAX-Examples/blob/master/Java/Smart%20Motion%20Example/src/main/java/frc/robot/Robot.java
-    public static final double ANGLE_KP_PROFILED = 0.00075; // .00075
+    public static final double ANGLE_KP_PROFILED = 1.5; // .00075
     public static final double ANGLE_KI_PROFILED = 0.0;
-    public static final double ANGLE_KD_PROFILED = 0.0;
-    public static final double ANGLE_KF_PROFILED = 0.0003; // .0003
+    public static final double ANGLE_KD_PROFILED = 0.1;
+    public static final double ANGLE_KF_PROFILED = 0.0; // .0003
     public static final double ANGLE_MAX_VEL_PROFILED = kMaximumSparkMaxRPM;  // Maximum Velocity, RPM
     public static final double ANGLE_MAX_ACC_PROFILED = 20000;  // Maximum Acceleration, RPM^2
     public static final double ANGLE_MAX_ERR_PROFILED = 0.02;  // Error tolerance of PID controller, rotations
@@ -205,7 +205,7 @@ public final class Constants {
     
     /** Swerve constraints. */
     public static final double MAX_SPEED_IN_PERCENT = 100.0;
-    public static final double MAX_VELOCITY_METERS_PER_SECOND = 0.1 * MAX_SPEED_IN_PERCENT;
+    public static final double MAX_VELOCITY_METERS_PER_SECOND = 0.0442 * MAX_SPEED_IN_PERCENT;
     public static final double MAX_ANGULAR_RADIANS_PER_SECOND = MAX_VELOCITY_METERS_PER_SECOND * 4/3;
     public static final double MAX_ANGULAR_DEGREES_PER_SECOND = Math.toDegrees(MAX_ANGULAR_RADIANS_PER_SECOND);
 
@@ -245,51 +245,51 @@ public final class Constants {
     public static final int LEDPWMport = 0;
   }
 
-  public void configureKrakens() {
-    // Driving Configs
-    driveConfig.Voltage.PeakForwardVoltage = 12;
-    driveConfig.Voltage.PeakReverseVoltage = -12;
-    driveConfig.TorqueCurrent.PeakForwardTorqueCurrent = 800;
-    driveConfig.TorqueCurrent.PeakReverseTorqueCurrent = -800;
-    driveConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-    driveConfig.CurrentLimits.StatorCurrentLimitEnable = true;
-    driveConfig.CurrentLimits.StatorCurrentLimit = 40.0;
-    driveConfigPID.kV = Constants.ConstantsOffboard.KRAKEN_V;
-    driveConfigPID.kP = Constants.ConstantsOffboard.KRAKEN_P;
-    driveConfigPID.kI = Constants.ConstantsOffboard.KRAKEN_I;
-    driveConfigPID.kD = Constants.ConstantsOffboard.KRAKEN_D;
-    driveConfig.withSlot0(driveConfigPID);
+  // public void configureKrakens() {
+  //   // Driving Configs
+  //   driveConfig.Voltage.PeakForwardVoltage = 12;
+  //   driveConfig.Voltage.PeakReverseVoltage = -12;
+  //   driveConfig.TorqueCurrent.PeakForwardTorqueCurrent = 800;
+  //   driveConfig.TorqueCurrent.PeakReverseTorqueCurrent = -800;
+  //   driveConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+  //   driveConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+  //   driveConfig.CurrentLimits.StatorCurrentLimit = 40.0;
+  //   driveConfigPID.kV = Constants.ConstantsOffboard.KRAKEN_V;
+  //   driveConfigPID.kP = Constants.ConstantsOffboard.KRAKEN_P;
+  //   driveConfigPID.kI = Constants.ConstantsOffboard.KRAKEN_I;
+  //   driveConfigPID.kD = Constants.ConstantsOffboard.KRAKEN_D;
+  //   driveConfig.withSlot0(driveConfigPID);
 
-    // Elevator Configs
-    elevatorConfig.Voltage.PeakForwardVoltage = 12;
-    elevatorConfig.Voltage.PeakReverseVoltage = -12;
-    elevatorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 800;
-    elevatorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -800;
-    elevatorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-    elevatorConfig.CurrentLimits.StatorCurrentLimitEnable = true;
-    elevatorConfig.CurrentLimits.StatorCurrentLimit = 20.0;
-    elevatorConfigPID.kS = 0.0; // Add 0.25 V output to overcome static friction
-    elevatorConfigPID.kV = 0.0; // A velocity target of 1 rps results in 0.12 V output
-    elevatorConfigPID.kA = 0.0; // An acceleration of 1 rps/s requires 0.01 V output
-    elevatorConfigPID.kP = 0.1; // A position error of 2.5 rotations results in 12 V output
-    elevatorConfigPID.kI = 0.0; // no output for integrated error
-    elevatorConfigPID.kD = 0.0; // A velocity error of 1 rps results in 0.1 V output
-    elevatorConfig.withSlot0(elevatorConfigPID);
+  //   // Elevator Configs
+  //   elevatorConfig.Voltage.PeakForwardVoltage = 12;
+  //   elevatorConfig.Voltage.PeakReverseVoltage = -12;
+  //   elevatorConfig.TorqueCurrent.PeakForwardTorqueCurrent = 800;
+  //   elevatorConfig.TorqueCurrent.PeakReverseTorqueCurrent = -800;
+  //   elevatorConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+  //   elevatorConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+  //   elevatorConfig.CurrentLimits.StatorCurrentLimit = 20.0;
+  //   elevatorConfigPID.kS = 0.0; // Add 0.25 V output to overcome static friction
+  //   elevatorConfigPID.kV = 0.0; // A velocity target of 1 rps results in 0.12 V output
+  //   elevatorConfigPID.kA = 0.0; // An acceleration of 1 rps/s requires 0.01 V output
+  //   elevatorConfigPID.kP = 0.1; // A position error of 2.5 rotations results in 12 V output
+  //   elevatorConfigPID.kI = 0.0; // no output for integrated error
+  //   elevatorConfigPID.kD = 0.0; // A velocity error of 1 rps results in 0.1 V output
+  //   elevatorConfig.withSlot0(elevatorConfigPID);
 
-    // Indexer Configs
-    indexerConfig.Voltage.PeakForwardVoltage = 12;
-    indexerConfig.Voltage.PeakReverseVoltage = -12;
-    indexerConfig.TorqueCurrent.PeakForwardTorqueCurrent = 800;
-    indexerConfig.TorqueCurrent.PeakReverseTorqueCurrent = -800;
-    indexerConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
-    indexerConfig.CurrentLimits.StatorCurrentLimitEnable = true;
-    indexerConfig.CurrentLimits.StatorCurrentLimit = 40.0;
-    indexerConfigPID.kS = 1.0; // Add 0.25 V output to overcome static friction
-    indexerConfigPID.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
-    indexerConfigPID.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
-    indexerConfigPID.kP = 24.0; // A position error of 2.5 rotations results in 12 V output
-    indexerConfigPID.kI = 0.0; // no output for integrated error
-    indexerConfigPID.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
-    indexerConfig.withSlot0(indexerConfigPID);
-  }
+  //   // Indexer Configs
+  //   indexerConfig.Voltage.PeakForwardVoltage = 12;
+  //   indexerConfig.Voltage.PeakReverseVoltage = -12;
+  //   indexerConfig.TorqueCurrent.PeakForwardTorqueCurrent = 800;
+  //   indexerConfig.TorqueCurrent.PeakReverseTorqueCurrent = -800;
+  //   indexerConfig.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RotorSensor;
+  //   indexerConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+  //   indexerConfig.CurrentLimits.StatorCurrentLimit = 40.0;
+  //   indexerConfigPID.kS = 1.0; // Add 0.25 V output to overcome static friction
+  //   indexerConfigPID.kV = 0.12; // A velocity target of 1 rps results in 0.12 V output
+  //   indexerConfigPID.kA = 0.01; // An acceleration of 1 rps/s requires 0.01 V output
+  //   indexerConfigPID.kP = 24.0; // A position error of 2.5 rotations results in 12 V output
+  //   indexerConfigPID.kI = 0.0; // no output for integrated error
+  //   indexerConfigPID.kD = 0.1; // A velocity error of 1 rps results in 0.1 V output
+  //   indexerConfig.withSlot0(indexerConfigPID);
+  // }
 }

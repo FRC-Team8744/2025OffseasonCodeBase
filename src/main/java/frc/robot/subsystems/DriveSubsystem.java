@@ -112,7 +112,7 @@ public class DriveSubsystem extends SubsystemBase {
   public boolean isAutoRotateToggle = true;
   public boolean isAutoYSpeedToggle = true;
   public boolean isAutoXSpeedToggle = true;
-  public boolean isDrivingSlow = true;
+  public boolean isDrivingSlow = false;
   
   // public boolean hasYFinished = false;
   

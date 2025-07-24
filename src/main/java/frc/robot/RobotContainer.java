@@ -6,7 +6,9 @@ package frc.robot;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Commands.ArmClimb;
 import frc.robot.Commands.ArmDown;
+import frc.robot.Commands.ArmStow;
 import frc.robot.Commands.ArmUp;
 import frc.robot.Commands.Intake;
 import frc.robot.Commands.Score;
@@ -23,9 +25,12 @@ import frc.robot.subsystems.vision.PhotonVisionGS;
 import frc.robot.subsystems.vision.PhotonVisionGS2;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 
 
 /*
@@ -89,14 +94,21 @@ public class RobotContainer {
     m_driver.a()
     .whileTrue(new ArmDown(m_arm));
 
-    m_driver.b()
+    m_driver.y()
     .whileTrue(new ArmUp(m_arm));
 
     m_driver.leftBumper()
-    .whileTrue(new Intake(m_scoringMech));
+    .whileTrue(new Intake(m_scoringMech, m_arm));
 
     m_driver.rightBumper()
     .whileTrue(new Score(m_scoringMech));
+
+    m_driver.x()
+    .whileTrue(new ArmClimb(m_arm));
+
+    // m_driver.b()
+    // .whileTrue(new ArmStow(m_arm));
+
     
     // m_coDriver.rightBumper()
     // .toggleOnTrue(Commands.runOnce(() -> m_robotDrive.leftPoint = false));
@@ -118,8 +130,10 @@ public class RobotContainer {
     // .toggleOnTrue(Commands.runOnce(() -> Constants.scoringMode = "Algae")
     // .alongWith(Commands.runOnce(() -> m_leds.SetSegmentByIntakeMech(ColorInterface.Algae, 50))));
 
-    m_driver.b()
-    .whileTrue(Commands.runOnce(() -> m_robotDrive.isAutoYSpeed = false).alongWith(Commands.runOnce(() -> m_robotDrive.isAutoXSpeed = false).alongWith(Commands.runOnce(() -> m_robotDrive.isAutoRotate = RotationEnum.NONE))));
+    // vision
+    // m_driver.b()
+    // .whileTrue(Commands.runOnce(() -> m_robotDrive.isAutoYSpeed = false).alongWith(Commands.runOnce(() -> m_robotDrive.isAutoXSpeed = false).alongWith(Commands.runOnce(() -> m_robotDrive.isAutoRotate = RotationEnum.NONE))));
+
 
     // m_coDriver.a()
     // .whileTrue(new TimerTest());

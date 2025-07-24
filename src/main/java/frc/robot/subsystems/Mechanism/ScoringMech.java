@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,7 +25,7 @@ public class ScoringMech extends SubsystemBase {
   private final SparkMax m_scoringMotorBottom;
 
 
-  private final SparkBaseConfig armConfig = new SparkMaxConfig().smartCurrentLimit(40);
+  private final SparkBaseConfig armConfig = new SparkMaxConfig().smartCurrentLimit(40).idleMode(IdleMode.kBrake);
   /** Creates a new Arm. */
   public ScoringMech() {
      m_scoringMotorTop = new SparkMax(9, MotorType.kBrushless);
@@ -45,8 +46,8 @@ public class ScoringMech extends SubsystemBase {
   }
 
   public void runMotor(double speed) {
-    m_scoringMotorBottom.set(speed);
-    m_scoringMotorTop.set(speed);
+    m_scoringMotorBottom.set(-speed);
+    m_scoringMotorTop.set(-speed);
   }
 
 
