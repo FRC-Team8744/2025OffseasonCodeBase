@@ -96,7 +96,12 @@ public class RobotContainer {
     // .whileTrue(new ArmDown(m_arm));
 
     m_driver.y()
-    .whileTrue(Commands.runOnce(() -> m_scoringMech.runMotor(.2)));
+    .whileTrue(Commands.runOnce(() -> m_scoringMech.runMotor(.2)))
+    .onFalse(Commands.runOnce(() -> m_scoringMech.stopMotors()));
+
+    m_driver.pov(180)
+    .whileTrue(Commands.runOnce(() -> m_arm.setarmDown()));
+    // .onFalse(getAutonomousCommand())(m_scoringMech.stopMotors());
 
     m_driver.leftBumper()
     .whileTrue(new Intake(m_scoringMech, m_arm));
@@ -109,6 +114,9 @@ public class RobotContainer {
 
     m_driver.pov(0)
     .whileTrue(Commands.runOnce(() -> m_arm.stopMotors()));
+
+    m_driver.pov(90)
+    .whileTrue(Commands.runOnce(() -> m_scoringMech.runMotor(.2)));
 
     // m_driver.b()
     // .whileTrue(new ArmStow(m_arm));

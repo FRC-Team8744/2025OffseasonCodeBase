@@ -39,6 +39,7 @@ public class Arm extends SubsystemBase {
   private final double intake = 0 / 1.5;
   private final double climb = 0.294 / 2.1;
   private final double stow = 0.195 / 1.8;
+  private final double armDown = 0.0 / 1.5;
   private final double startingPosition = 0.877;
 
   private double minimumAngle = 0;
@@ -57,7 +58,8 @@ public class Arm extends SubsystemBase {
 
     armConfig.closedLoop.pidf(2,0,0.001,2);
     armConfig2.closedLoop.pidf(2,0,0.001,2);
-    armConfigRight.closedLoop.pidf(2,0,0.001,2);
+    armConfigRight.closedLoop.pidf(2,0,0.001,2
+    );
 
     // armConfig2.closedLoop.positionWrappingEnabled(true);
     // armConfig2.closedLoop.positionWrappingMaxInput(1);
@@ -122,6 +124,10 @@ public class Arm extends SubsystemBase {
 
   public void setIntake(){
     m_armPID.setReference(intake, ControlType.kPosition);
+  }
+
+  public void setarmDown(){
+    m_armPID.setReference(armDown, ControlType.kPosition);
   }
 
   @Override

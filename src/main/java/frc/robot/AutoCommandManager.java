@@ -100,5 +100,8 @@ public class AutoCommandManager {
        ScoringMech m_scoringMech
     ) {
         // NamedCommands.registerCommand("AutoLineUp", Commands.runOnce(() -> m_robotDrive.isAutoRotate = RotationEnum.STRAFEONTARGET));
+        NamedCommands.registerCommand("TurnTable", Commands.runOnce(() -> m_arm.setL1()));
+        NamedCommands.registerCommand("UnTurn", Commands.runOnce(() -> m_scoringMech.runMotor(.2)));
+
     }
 }
