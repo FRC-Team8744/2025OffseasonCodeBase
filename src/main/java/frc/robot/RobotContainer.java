@@ -6,12 +6,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Commands.AlignToScore;
 import frc.robot.Commands.ArmClimb;
 import frc.robot.Commands.ArmDown;
 import frc.robot.Commands.ArmStow;
 import frc.robot.Commands.ArmUp;
 import frc.robot.Commands.Intake;
-import frc.robot.Commands.Score;
+import frc.robot.Commands.AlignToScore;
 import frc.robot.Constants.ConstantsOffboard;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.SwerveConstants;
@@ -88,23 +89,26 @@ public class RobotContainer {
     m_driver.rightStick()
     .toggleOnTrue(Commands.runOnce(() -> m_robotDrive.isAutoRotate = m_robotDrive.isAutoRotate == RotationEnum.STRAFEONTARGET ? RotationEnum.NONE : RotationEnum.STRAFEONTARGET));
 
-    m_driver.pov(0)
+    m_driver.pov(90)
     .whileTrue(Commands.runOnce(() -> Constants.visionElevator = !Constants.visionElevator));
 
-    m_driver.a()
-    .whileTrue(new ArmDown(m_arm));
+    // m_driver.a()
+    // .whileTrue(new ArmDown(m_arm));
 
     m_driver.y()
-    .whileTrue(new ArmUp(m_arm));
+    .whileTrue(Commands.runOnce(() -> m_scoringMech.runMotor(.2)));
 
     m_driver.leftBumper()
     .whileTrue(new Intake(m_scoringMech, m_arm));
 
     m_driver.rightBumper()
-    .whileTrue(new Score(m_scoringMech));
+    .whileTrue(new AlignToScore(m_arm));
 
     m_driver.x()
     .whileTrue(new ArmClimb(m_arm));
+
+    m_driver.pov(0)
+    .whileTrue(Commands.runOnce(() -> m_arm.stopMotors()));
 
     // m_driver.b()
     // .whileTrue(new ArmStow(m_arm));
